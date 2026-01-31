@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="header">
+    <h2>Images</h2>
+    <p class="hint">Your uploaded images</p>
+  </div>
+
+  <ng-container *ngIf="images$ | async as images">
+    <div class="empty" *ngIf="!images.length">No images yet.</div>
+
+    <div class="grid" *ngIf="images.length">
+        <div class="card" *ngFor="let img of images">
+            <div class="thumb" (click)="openPreview(img, $event)">
+                <img [src]="img.downloadUrl" [alt]="img.name" loading="lazy" />
+            </div>
+
+            <div class="meta">
+                <div class="name" [title]="img.originalName || img.name">
+                    {{ img.originalName || img.name }}
+                </div>
+
+                <div class="submeta">
+                    <div class="left">
+                        <span>{{ (img.size / 1024) | number:'1.0-0' }} KB</span>
+                    </div>
+
+                    <button
+                        mat-icon-button
+                        class="iconBtn dl"
+                        type="button"
+                        aria-label="Download"
+                        (click)="download(img, $event)"
+                    >
+                        <mat-icon>download</mat-icon>
+                    </button>
+                    <button mat-icon-button class="iconBtn danger" aria-label="Delete"
+                            (click)="delete(img, $event)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Modal preview -->
+<div class="backdrop" *ngIf="previewUrl" (click)="closePreview()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modalTop">
+      <div class="modalTitle">{{ previewName }}</div>
+      <button mat-icon-button aria-label="Close" (click)="closePreview()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <img class="modalMedia" [src]="previewUrl" [alt]="previewName" />
+  </div>
+</div>

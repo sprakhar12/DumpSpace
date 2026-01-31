@@ -1,0 +1,68 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <!-- LEFT -->
+     <aside class="auth-right">
+      <div class="hero">
+        <div class="bg a" [class.show]="showA" [style.backgroundImage]="'url(' + a + ')'"></div>
+        <div class="bg b" [class.show]="!showA" [style.backgroundImage]="'url(' + b + ')'"></div>
+
+        <div class="hero-overlay"></div>
+      </div>
+    </aside>
+
+    <!-- RIGHT -->
+    <section class="auth-left">
+      <div class="brand">
+        <div class="brand-mark">DS</div>
+        <div class="brand-name">DumpSpace</div>
+      </div>
+
+      <h1 class="title">Welcome Back <span class="wave">👋</span></h1>
+      <p class="subtitle">
+        Sign in to start managing your Dump Space!
+      </p>
+      
+      <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+        <label class="field">
+          <span>Email</span>
+          <input
+            class="input"
+            type="email"
+            placeholder="example@email.com"
+            formControlName="email"
+            autocomplete="email"
+          />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input
+            class="input"
+            type="password"
+            placeholder="At least 8 characters"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+        </label>
+
+        <div class="row">
+          <a class="link" href="#" (click)="$event.preventDefault()">Forgot Password?</a>
+        </div>
+
+        <p class="error" *ngIf="error">{{ error }}</p>
+        <br/>
+        <button class="btn" type="submit" [disabled]="form.invalid || loading">
+          {{ loading ? 'Signing in...' : 'Sign in' }}
+        </button>
+
+        <p class="bottom-text">
+          Don’t have an account?
+          <a class="link" routerLink="/signup">Sign up</a>
+        </p>
+
+        <p class="footer">© 2026 DumpSpace. All rights reserved</p>
+      </form>
+    </section>
+    
+  </div>
+</div>
