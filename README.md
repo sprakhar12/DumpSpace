@@ -2,7 +2,7 @@
 
 A personal media storage dashboard built with Angular + Firebase (Auth, Firestore, Storage).
 
-![DumpSpace Web App](https://dumpspace-416b6.web.app/)
+![](public/favicon.ico)  [DumpSpace Web App](https://dumpspace-416b6.web.app/)
 
 > Demo environment (Firebase).  
 > Please sign up with your own email or use test credentials if provided.  
