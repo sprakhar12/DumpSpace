@@ -1,0 +1,31 @@
+# DumpSpace – Local Development Configuration
+#
+# This file is a TEMPLATE.
+# Copy it to `application-local.properties` and fill in real values
+#
+# DO NOT commit `application-local.properties` (it contains secrets)
+
+# Spring
+spring.application.name=dumpspace-backend
+server.port=8080
+
+# CORS (Frontend running locally)
+# Comma-separated list of allowed origins
+app.cors.allowed-origins=http://localhost:4200
+
+# Optional overrides (defaults are usually fine)
+# app.cors.allowed-methods=GET,POST,PUT,DELETE,OPTIONS
+# app.cors.allowed-headers=Authorization,Content-Type
+# app.cors.allow-credentials=true
+
+# Firebase Admin SDK (LOCAL ONLY)
+# Path to Firebase service account JSON (absolute path recommended)
+# Example (Windows):
+# firebase.service-account-path=C:/dev/DumpSpace/secrets/firebase-service-account.json
+# Example (macOS / Linux):
+# firebase.service-account-path=/Users/yourname/secrets/firebase-service-account.json
+#
+# In production:
+# - DO NOT set this property
+# - Use GOOGLE_APPLICATION_CREDENTIALS environment variable instead
+# firebase.service-account-path=

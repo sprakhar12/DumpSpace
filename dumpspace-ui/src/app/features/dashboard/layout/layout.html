@@ -1,0 +1,55 @@
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">D</div>
+      <div class="name">DumpSpace</div>
+    </div>
+
+    <!-- ✅ User block in sidebar -->
+    <nav class="nav">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navItem">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+
+      <a routerLink="/home/upload" routerLinkActive="active" class="navItem">
+        <span class="dot"></span>
+        Upload
+      </a>
+
+      <a routerLink="/home/images" routerLinkActive="active" class="navItem">
+        <span class="dot"></span>
+        Images
+      </a>
+
+      <a routerLink="/home/videos" routerLinkActive="active" class="navItem">
+        <span class="dot"></span>
+        Videos
+      </a>
+
+      <button class="navItem danger" type="button" (click)="logout()">
+        <span class="dot"></span>
+        Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <div class="spacer"></div>
+  
+      <div class="topbar-right" *ngIf="$user | async as user">
+        <div class="userChip" routerLink="/home" routerLinkActive="active">
+          <div class="avatar">{{ initials(user.email) }}</div>
+          <div class="who">{{ $displayName | async }}</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

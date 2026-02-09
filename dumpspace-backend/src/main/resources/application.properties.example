@@ -1,0 +1,8 @@
+# DumpSpace – Default Application Configuration
+#
+# Safe to commit. No secrets here
+
+# Spring
+spring.application.name=dumpspace-backend
+# Server port (can be overridden by profile or env var)
+server.port=8080
