@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ApiService } from '../../../core/api/api.service';
+import { UserStore } from '../../../core/auth/user.store';
 
 @Component({
   selector: 'app-login',
@@ -46,6 +48,8 @@ export class Login implements OnInit, OnDestroy{
   private auth = inject(AuthService);
   private router = inject(Router);
   private zone = inject(NgZone);
+  private api = inject(ApiService);
+  private userStore = inject(UserStore);
 
   loading = false;
   error = '';
@@ -67,7 +71,18 @@ export class Login implements OnInit, OnDestroy{
     try{
       const { email, password } = this.form.getRawValue();
       await this.auth.login(email!, password!);
-      await this.router.navigate(['/home']);
+      this.api.identity().subscribe({
+        next: (identity: any) => {
+          this.userStore.setIdentity(identity);
+          this.router.navigateByUrl('/home');
+        },
+        error: () => {
+          this.zone.run(() => {
+            this.error = this.auth.mapAuthError('user/failed-to-fetch');
+            this.loading = false;
+          });
+        }
+      });
     } catch (err: any) {
       this.zone.run(() => {
         this.error = this.auth.mapAuthError(err);

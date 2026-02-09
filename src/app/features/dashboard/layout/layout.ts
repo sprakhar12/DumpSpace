@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { MatIconModule } from '@angular/material/icon';
+import { UserStore } from '../../../core/auth/user.store';
+import { map, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -15,10 +17,14 @@ import { MatIconModule } from '@angular/material/icon';
 export class DashboardLayout {
   auth = inject(AuthService);
   private router = inject(Router);
+  private userStore = inject(UserStore);
 
-  displayName = computed(() => {
-    // ToDo : user friendly Display Name
-  });
+  $user = this.userStore.$identity;
+
+  $displayName = this.userStore.$identity.pipe(
+    map(user =>(user?.name || user?.email || 'User').split('@')[0]),
+    shareReplay({refCount: true, bufferSize: 1})
+  );
 
   initials(emailOrName: string | null | undefined) {
     const s = (emailOrName ?? '').trim();
@@ -32,6 +38,7 @@ export class DashboardLayout {
 
   async logout() {
     await this.auth.logout();
+    this.userStore.clear();
     await this.router.navigateByUrl('/login');
   }
 }

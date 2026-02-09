@@ -23,5 +23,5 @@ export const routes: Routes = [
             { path: 'videos', component: LibraryVideos },
         ]
     },
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'login' }
 ];

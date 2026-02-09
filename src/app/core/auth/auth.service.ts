@@ -1,18 +1,16 @@
-import { Injectable, inject } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private auth: Auth = inject(Auth);
-    public user$: Observable<User | null> = authState(this.auth);
-
-    signup(email: string, password: string) {
-        return createUserWithEmailAndPassword(this.auth, email, password);
-    }
+    constructor(private auth: Auth) {}
 
     login(email: string, password: string) {
         return signInWithEmailAndPassword(this.auth, email, password);
+    }
+
+    signup(email: string, password: string) {
+        return createUserWithEmailAndPassword(this.auth, email, password);
     }
 
     logout() {
@@ -36,6 +34,8 @@ export class AuthService {
             return 'Please enter a valid email address.';
         case 'auth/password-mismatch':
             return 'Passwords do not match.';
+        case'user/failed-to-fetch':
+            return 'Login successful, but failed to fetch user data.';
         default:
             return 'Something went wrong. Please try again.';
         }
