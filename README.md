@@ -1,6 +1,6 @@
 # DumpspaceUi
 
-A personal media storage dashboard built with Angular + Firebase (Auth, Firestore, Storage).
+A personal media storage dashboard built with Angular + Java Spring Boot + Firebase (Auth, Firestore, Storage, Hosting).
 
 ![](public/favicon.ico)  [DumpSpace Web App](https://dumpspace-416b6.web.app/)
 
