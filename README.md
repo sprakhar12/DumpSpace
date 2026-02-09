@@ -11,7 +11,7 @@ A personal media storage dashboard built with Angular + Firebase (Auth, Firestor
 High-level idea -
 Users log in → get a personal cloud space → upload photos/videos → files stored in Firebase Storage → metadata stored in NoSQL → backend microservices manage retrieval, processing, security → Angular app shows media library.
 
-## Development server
+## Development server (Frontend)
 
 Important - Copy environment.example.ts -> environment.ts with respective keys and credentials. please follow the same for environment.prod.example.ts->environment.prod.ts
 
@@ -29,6 +29,16 @@ ng serve
 
 Once the server is running, open your browser and navigate to localhost link. The application will automatically reload whenever you modify any of the source files.
 
+## Development server (Backend)
+
+Important - Copy application.local.properties.example -> application.local.properties with respective configs. please follow the same for application.properties.example->application.properties
+
+1) To start a local development server, run:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+```
+
 ## Progress
 
 - Auth: sign up / login
@@ -39,6 +49,15 @@ Once the server is running, open your browser and navigate to localhost link. Th
 - Download button
 - Delete (Firestore + Storage)
 - Dashboard: stats + recent uploads
-- Backend Microservices (Work In Progress): Spring Boot, Kafka, REST APIs
+- Frontend auth cleanup complete
+- Backend auth & config cleanup complete
+- Identity sync via /api/identity implemented
+- More onto Backend; still In Progress
 
+## Security Notes
 
+- Every API request is verified using Firebase Admin
+- No session storage
+- stateless token verification
+- CORS configured
+- Secrets never committed to Git
